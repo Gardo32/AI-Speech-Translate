@@ -1,8 +1,9 @@
 # app.py
-import os
 
+import os
 from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
 from dotenv import load_dotenv
+from translate import translate_speech
 
 # Load environment variables
 load_dotenv()
@@ -29,8 +30,20 @@ def login():
 def main():
     return render_template('main.html')
 
+@app.route('/translate', methods=['POST'])
+def translate():
+    input_language = request.form['input_language']
+    target_language = request.form['target_language']
+    audio_data = request.files['audio_data']
+
+    audio_file_path = 'audio.wav'
+    audio_data.save(audio_file_path)
+
+    translation = translate_speech(audio_file_path, input_language, target_language)
+    return jsonify({'translation': translation})
+
 def run_app():
-    app.run(port=int(os.environ.get('PORT', 80)))
+    app.run(port=int(os.environ.get('PORT', 5000)))
 
 if __name__ == "__main__":
     run_app()

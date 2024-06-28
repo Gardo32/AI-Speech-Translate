@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Speech Translator{% endblock %}
+
+{% block content %}
+<div class="translator-container">
+    <h2>Speech Translator</h2>
+    <div>
+        <label for="input_language">Input Language:</label>
+        <select id="input_language">
+            <option value="en-US">English (United States)</option>
+            <option value="es-ES">Spanish (Spain)</option>
+            <!-- Add more languages as needed -->
+        </select>
+    </div>
+    <div>
+        <label for="target_language">Target Language:</label>
+        <select id="target_language">
+            <option value="en">English</option>
+            <option value="es">Spanish</option>
+            <!-- Add more languages as needed -->
+        </select>
+    </div>
+    <div>
+        <button id="record_button">Record</button>
+        <span id="record_status" class="hidden">Recording...</span>
+    </div>
+    <div>
+        <button id="play_button" disabled>Play</button>
+        <button id="send_button" disabled>Send</button>
+    </div>
+    <div>
+        <audio id="audio_playback" controls></audio>
+    </div>
+    <div>
+        <h3>Translation Result:</h3>
+        <p id="translation_result"></p>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+{% endblock %}

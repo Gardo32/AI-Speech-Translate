@@ -5,13 +5,11 @@ from flask import Flask, render_template, request, redirect, url_for, flash, jso
 from dotenv import load_dotenv
 from translate import translate_speech
 
-# Load environment variables
 load_dotenv()
 
 app = Flask(__name__, template_folder='src/templates', static_folder='src/static')
 app.secret_key = os.urandom(24)
 
-# Credentials from .env file
 USERNAME = os.getenv('USERNAME')
 PASSWORD = os.getenv('PASSWORD')
 
@@ -43,7 +41,7 @@ def translate():
     return jsonify({'translation': translation})
 
 def run_app():
-    app.run(port=int(os.getenv('PORT', 5000)))
+    app.run(port=int(os.environ.get('PORT', 5000)),debug=True)
 
 if __name__ == "__main__":
     run_app()
